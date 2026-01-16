@@ -9,8 +9,10 @@ import NavLinks from "./components/NavBar.jsx";
 function App() {
     // 2. On crée l'état (la liste et sa télécommande)
     const [tasks, setTasks] = useState([
-        { id: 1, title: "Apprendre React Router", description: "Comprendre le fonctionnement des routes." },
-        { id: 2, title: "Créer une Navbar", description: "Utiliser NavLink pour naviguer." }
+        { id: 1, title: "Créer des tâches", description: "C'était une galère mais j'ai compris comment transformer le tableau statique en tableau grâce à useState" },
+        { id: 2, title: "Trouver un bar pour aller se détendre ce soir", description: `Je regarde la liste des bars sur Blois pour voir si y'en à qu'on à pas encore visité.
+        Y'en a pas, on les à déja tous visité` },
+        {id: 3, title: "Prendre un rendez-vous en turquie pour la calvasse à Mamad", description: ``}
     ]);
 
     // 3. La fonction DOIT être ici pour pouvoir utiliser "setTasks"

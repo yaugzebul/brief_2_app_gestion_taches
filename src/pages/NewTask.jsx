@@ -1,41 +1,54 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function NewTask({ onAddTask }) {
-    // 1. On crée une "mémoire locale" pour ce que l'utilisateur tape
-    const [title, setTitle] = useState("");
+// 1. LES STYLES
+const formBox = {
+    maxWidth: "400px",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px"
+};
 
-    // 2. On initialise notre GPS de navigation
+const inputStyle = {
+    padding: "12px",
+    borderRadius: "5px",
+    border: "1px solid #ccc"
+};
+
+const btnStyle = {
+    backgroundColor: "#27ae60", // Vert
+    color: "white",
+    padding: "12px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer"
+};
+
+function NewTask({ onAddTask }) {
+    const [title, setTitle] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Empêche la page de se racharger
-
-        // On crée l'objet de la nouvelle tâche
-        const newTask = {
-            id: Date.now(), // Un ID unique basé sur l'heure actuelle
-            title: title,
-            description: "Tâche ajoutée manuellement"
-        };
-
-        // 3. On utilise l'outil reçu du parent pour ajouter la tâche
-        onAddTask(newTask);
-
-        // 4. On demande au GPS de nous ramener à l'accueil
+        e.preventDefault();
+        if (!title) return;
+        onAddTask({ id: Date.now(), title, description: "Nouvelle tâche" });
         navigate("/");
     };
 
     return (
-        <div>
-            <h1>Ajouter une nouvelle tâche</h1>
-            <form onSubmit={handleSubmit}>
+        <div style={{ textAlign: "center" }}>
+            <h1>Nouvelle tâche</h1>
+            {/* 2. APPLICATION SUR LE FORMULAIRE ET SES ÉLÉMENTS */}
+            <form onSubmit={handleSubmit} style={formBox}>
                 <input
+                    style={inputStyle}
                     type="text"
-                    placeholder="Nom de la tâche..."
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)} // Met à jour le titre à chaque lettre tapée
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Titre de la tâche..."
                 />
-                <button type="submit">Enregistrer</button>
+                <button type="submit" style={btnStyle}>Enregistrer</button>
             </form>
         </div>
     );
